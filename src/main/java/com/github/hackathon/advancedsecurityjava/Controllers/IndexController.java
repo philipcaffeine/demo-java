@@ -51,6 +51,16 @@ public class IndexController {
         // All books
         query = "SELECT * FROM Books";
       }
+     
+      PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+      if (bookname != null) {
+          preparedStatement.setString(1, "%" + bookname + "%");
+      } else if (bookauthor != null) {
+          preparedStatement.setString(1, "%" + bookauthor + "%");
+      } else if (bookread != null) {
+          preparedStatement.setInt(1, bookread ? 1 : 0);
+      }
 
       ResultSet results = statement.executeQuery(query);
 
